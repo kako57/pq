@@ -18,20 +18,15 @@ int_node *delete_ints(int_node *head) {
 
 int_node *int_factors(int num) {
   int_node *results = NULL;
-  if (num == 0) {
-    results = insert_int(results, 0);
-    return results;
-  }
+  if (num == 0)
+    return insert_int(results, 0);
 
   if (num < 0)
     num *= -1;
 
-  for (int i = 1; i <= num; i++) {
-    if (num % i == 0) {
-      results = insert_int(results, i);
-      results = insert_int(results, -i);
-    }
-  }
+  for (int i = 1; i <= num; i++)
+    if (num % i == 0)
+      results = insert_int(insert_int(results, -i), i);
 
   return results;
 }

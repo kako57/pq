@@ -1,10 +1,9 @@
 #include "fraction.h"
 int gcd(int a, int b) {
-  if (b == 0) {
+  if (b == 0)
     return a;
-  } else if (a == 0) {
+  else if (a == 0)
     return b;
-  }
   return gcd(b, a % b);
 }
 
@@ -13,11 +12,10 @@ int lcm(int a, int b) {
 }
 
 void print_fraction(fraction f) {
-  if (f.denominator == 1) {
+  if (f.denominator == 1)
     printf("%d\n", f.numerator);
-  } else {
+  else
     printf("%d/%d\n", f.numerator, f.denominator);
-  }
 }
 
 fraction frac_scalar_mult(fraction f, int k) {

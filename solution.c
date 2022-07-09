@@ -9,17 +9,15 @@ solution_node *newSolution(fraction f) {
 }
 
 solution_node *insertSolution(solution_node *root, solution_node *new_node) {
-  if (root == NULL) {
+  if (root == NULL)
     return new_node;
-  }
 
-  if (frac_less(root->value, new_node->value)) {
+  if (frac_less(root->value, new_node->value))
     root->left = insertSolution(root->left, new_node);
-  } else if (frac_greater(root->value, new_node->value)) {
+  else if (frac_greater(root->value, new_node->value))
     root->right = insertSolution(root->right, new_node);
-  } else {
+  else
     free(new_node);
-  }
 
   return root;
 }
@@ -27,15 +25,18 @@ solution_node *insertSolution(solution_node *root, solution_node *new_node) {
 solution_node *deleteSolutionSet(solution_node *root) {
   if (root == NULL)
     return NULL;
+
   root->left = deleteSolutionSet(root->left);
   root->right = deleteSolutionSet(root->right);
   free(root);
+
   return NULL;
 }
 
 void printSolutionSet(solution_node *root) {
   if (root == NULL)
     return;
+
   printSolutionSet(root->left);
   print_fraction(root->value);
   printSolutionSet(root->right);
@@ -47,9 +48,7 @@ solution_node *solve(polynomial *eq) {
   solution_node *roots = NULL;
 
   // if the degree stated is greater what it actually seems
-  while (eq->coefficients[eq->degree].numerator == 0) {
-    eq->degree--;
-  }
+  while (eq->coefficients[eq->degree].numerator == 0) eq->degree--;
 
   // if a_0 is zero, then eq is divisible by x
   while (eq->coefficients[0].numerator == 0) {
@@ -58,11 +57,8 @@ solution_node *solve(polynomial *eq) {
     // zero won't actually be added if it is there already
     roots = insertSolution(roots, zero_sol);
     fraction *new_coefficients = (fraction *)malloc((eq->degree) * sizeof(fraction));
-    for (int i = 0; i < eq->degree; i++) {
-      printf("degree: %d i: %d\n", eq->degree, i);
-      fflush(stdout);
+    for (int i = 0; i < eq->degree; i++)
       new_coefficients[i] = eq->coefficients[i + 1];
-    }
     free(eq->coefficients);
     eq->coefficients = new_coefficients;
     eq->degree--;
@@ -74,12 +70,8 @@ solution_node *solve(polynomial *eq) {
   for (fraction_node *p = ps; p != NULL; p = p->next) {
     for (fraction_node *q = qs; q != NULL; q = q->next) {
       fraction f = frac_div(p->value, q->value);
-      
-      fraction result = eval(eq, f);
-      if (result.numerator == 0) {
-        solution_node *new_sol = newSolution(f);
-        roots = insertSolution(roots, new_sol);
-      }
+      if (eval(eq, f).numerator == 0)
+        roots = insertSolution(roots, newSolution(f));
     }
   }
 
@@ -88,4 +80,3 @@ solution_node *solve(polynomial *eq) {
 
   return roots;
 }
-

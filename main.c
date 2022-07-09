@@ -21,7 +21,6 @@ int main(int argc, char **argv) {
 
     p.coefficients[i].numerator = atoi(num);
     p.coefficients[i].denominator = den == NULL ? 1 : atoi(den);
-
   }
 
   solution_node *results = solve(&p);
