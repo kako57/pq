@@ -14,6 +14,7 @@ bool frac_less(fraction f, fraction d);
 bool frac_greater(fraction f, fraction d);
 fraction frac_add(fraction f, fraction d);
 fraction frac_mult(fraction f, fraction d);
+fraction frac_div(fraction f, fraction d);
 
 #define _FRACTION_H
 #endif

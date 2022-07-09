@@ -3,7 +3,7 @@
 #ifndef _POLYNOMIAL_H
 
 typedef struct {
-  int *coefficients;
+  fraction *coefficients;
   int degree;
 } polynomial;
 

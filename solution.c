@@ -1,4 +1,5 @@
 #include "solution.h"
+#include "fraction_list.h"
 #include "int_list.h"
 
 solution_node *newSolution(fraction f) {
@@ -46,31 +47,33 @@ solution_node *solve(polynomial *eq) {
   solution_node *roots = NULL;
 
   // if the degree stated is greater what it actually seems
-  while (eq->coefficients[eq->degree] == 0) {
+  while (eq->coefficients[eq->degree].numerator == 0) {
     eq->degree--;
   }
 
   // if a_0 is zero, then eq is divisible by x
-  while (eq->coefficients[0] == 0) {
+  while (eq->coefficients[0].numerator == 0) {
     fraction zero = { 0, 1 };
     solution_node *zero_sol = newSolution(zero);
     // zero won't actually be added if it is there already
     roots = insertSolution(roots, zero_sol);
-    int *new_coefficients = (int *)malloc((eq->degree) * sizeof(int));
-    for (int i = 0; i < eq->degree; i++)
+    fraction *new_coefficients = (fraction *)malloc((eq->degree) * sizeof(fraction));
+    for (int i = 0; i < eq->degree; i++) {
+      printf("degree: %d i: %d\n", eq->degree, i);
+      fflush(stdout);
       new_coefficients[i] = eq->coefficients[i + 1];
+    }
     free(eq->coefficients);
     eq->coefficients = new_coefficients;
     eq->degree--;
   }
 
-  int_node *ps = find_factors(eq->coefficients[0]);
-  int_node *qs = find_factors(eq->coefficients[eq->degree]);
+  fraction_node *ps = frac_factors(eq->coefficients[0]);
+  fraction_node *qs = frac_factors(eq->coefficients[eq->degree]);
 
-  for (int_node *p = ps; p != NULL; p = p->next) {
-    for (int_node *q = qs; q != NULL; q = q->next) {
-      fraction f = { p->value, q->value };
-      f = frac_reduce(f);
+  for (fraction_node *p = ps; p != NULL; p = p->next) {
+    for (fraction_node *q = qs; q != NULL; q = q->next) {
+      fraction f = frac_div(p->value, q->value);
       
       fraction result = eval(eq, f);
       if (result.numerator == 0) {
@@ -80,8 +83,8 @@ solution_node *solve(polynomial *eq) {
     }
   }
 
-  deleteInts(ps);
-  deleteInts(qs);
+  delete_fractions(ps);
+  delete_fractions(qs);
 
   return roots;
 }

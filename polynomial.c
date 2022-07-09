@@ -2,13 +2,12 @@
 
 fraction eval(polynomial *eq, fraction f) {
   fraction result;
-  result.numerator = eq->coefficients[eq->degree];
-  result.denominator = 1;
+
+  result = eq->coefficients[eq->degree];
 
   for (int i = eq->degree - 1; i >= 0; i--) {
     fraction addend;
-    addend.numerator = eq->coefficients[i];
-    addend.denominator = 1;
+    addend = eq->coefficients[i];
     result = frac_add(frac_mult(result, f), addend);
   }
 

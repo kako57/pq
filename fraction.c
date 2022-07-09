@@ -60,3 +60,9 @@ fraction frac_mult(fraction f, fraction d) {
   f.denominator *= d.denominator;
   return frac_reduce(f);
 }
+
+fraction frac_div(fraction f, fraction d) {
+  f.numerator *= d.denominator;
+  f.denominator *= d.numerator;
+  return frac_reduce(f);
+}
