@@ -3,12 +3,12 @@
 
 pq is a rational roots finder for polynomial equations;
 
-integral coefficients only;
+UPDATE: pq now supports rational coefficients!
 
 ---
 ## Example
 
-Note: enter polynomial coefficients in decreasing power
+Enter the polynomial coefficients in decreasing power as arguments to the program
 
 ```
 $ # solve a polynomial equation in degree 8
@@ -22,4 +22,15 @@ Rational roots:
 2
 1
 0
+```
+
+## Rational coefficients!
+
+pq now supports rational coefficients in polynomial equations
+
+```c
+$ # solve a polynomial equation with rational coefficients
+$ ./pq 1 1 1/4
+Rational roots:
+-1/2
 ```
