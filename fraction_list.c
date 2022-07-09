@@ -24,8 +24,7 @@ fraction_node *frac_factors(fraction f) {
 
   for (int_node *i = num_factors; i != NULL; i = i->next) {
     for (int_node *j = den_factors; j != NULL; j = j->next) {
-      fraction d = {.numerator = i->value, .denominator = j->value};
-      results = insert_fraction(results, d);
+      results = insert_fraction(results, (fraction) {.numerator = i->value, .denominator = j->value});
     }
   }
 

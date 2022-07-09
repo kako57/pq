@@ -6,7 +6,7 @@
 #include <string.h>
 
 int main(int argc, char **argv) {
-  if (argc < 3) {
+  if (argc < 2) {
     fprintf(stderr, "Usage: %s [coefficients in decreasing power]\n", argv[0]);
     return 1;
   }
@@ -19,8 +19,7 @@ int main(int argc, char **argv) {
     char *num = strtok(argv[p.degree - i + 1], "/");
     char *den = strtok(NULL, "/");
 
-    p.coefficients[i].numerator = atoi(num);
-    p.coefficients[i].denominator = den == NULL ? 1 : atoi(den);
+    p.coefficients[i] = (fraction) { atoi(num), den == NULL ? 1 : atoi(den) };
   }
 
   solution_node *results = solve(&p);
