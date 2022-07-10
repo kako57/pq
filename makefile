@@ -8,7 +8,7 @@ pq: main.o fraction.o fraction_list.o polynomial.o solution.o int_list.o
 	$(CC) $(CFLAGS) -c $<
 
 clean :
-	rm -f *.o peqpeq .depend
+	rm -f *.o pq .depend
 .PHONY: clean
 
 .depend: main.c fraction.c fraction_list.c polynomial.c solution.c int_list.c

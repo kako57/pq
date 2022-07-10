@@ -48,10 +48,10 @@ solution_node *solve(polynomial *eq) {
   solution_node *roots = NULL;
 
   // if the degree stated is greater what it actually seems
-  while (eq->coefficients[eq->degree].numerator == 0) eq->degree--;
+  while (eq->degree > 0 && eq->coefficients[eq->degree].numerator == 0) eq->degree--;
 
   // if a_0 is zero, then eq is divisible by x
-  while (eq->coefficients[0].numerator == 0) {
+  while (eq->degree > 0 && eq->coefficients[0].numerator == 0) {
     fraction zero = { 0, 1 };
     solution_node *zero_sol = newSolution(zero);
     // zero won't actually be added if it is there already
@@ -63,6 +63,9 @@ solution_node *solve(polynomial *eq) {
     eq->coefficients = new_coefficients;
     eq->degree--;
   }
+
+  if (eq->degree == 0)
+    return NULL;
 
   fraction_node *ps = frac_factors(eq->coefficients[0]);
   fraction_node *qs = frac_factors(eq->coefficients[eq->degree]);

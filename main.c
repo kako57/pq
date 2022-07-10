@@ -18,13 +18,20 @@ int main(int argc, char **argv) {
     char *num = strtok(argv[p.degree - i + 1], "/");
     char *den = strtok(NULL, "/");
 
+    printf("%p %p\n", num, den);
+
     p.coefficients[i] = (fraction){ strtol(num, NULL, 10), den == NULL ? 1 : strtol(den, NULL, 10) };
+    print_fraction(p.coefficients[i]);
   }
 
   solution_node *results = solve(&p);
 
-  puts("Rational roots:");
-  printSolutionSet(results);
+  if (results != NULL) {
+    puts("Rational roots:");
+    printSolutionSet(results);
+  } else {
+    puts("Cannot solve.");
+  }
 
   deleteSolutionSet(results);
   free(p.coefficients);
