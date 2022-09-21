@@ -2,12 +2,17 @@
 #include "fraction_list.h"
 #include "int_list.h"
 
+// creates a new solution
 solution_node *newSolution(fraction f) {
   solution_node *new_node = (solution_node *)calloc(1, sizeof(solution_node));
   new_node->value = f;
   return new_node;
 }
 
+/*
+ * inserts a new solution in the solution set
+ * if the solution already exists in the set, the solution is not added to avoid duplicates
+ */
 solution_node *insertSolution(solution_node *root, solution_node *new_node) {
   if (root == NULL)
     return new_node;
@@ -22,6 +27,7 @@ solution_node *insertSolution(solution_node *root, solution_node *new_node) {
   return root;
 }
 
+// deletes the solution set
 solution_node *deleteSolutionSet(solution_node *root) {
   if (root == NULL)
     return NULL;
@@ -33,6 +39,7 @@ solution_node *deleteSolutionSet(solution_node *root) {
   return NULL;
 }
 
+// prints all the elements in the solution set in increasing order
 void printSolutionSet(solution_node *root) {
   if (root == NULL)
     return;
@@ -42,6 +49,7 @@ void printSolutionSet(solution_node *root) {
   printSolutionSet(root->right);
 }
 
+// finds all rational roots of polynomial eq and aggregates them in a solution set
 solution_node *solve(polynomial *eq) {
   // p is a factor of a_0
   // q is a factor of a_{n-1}

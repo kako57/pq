@@ -1,6 +1,7 @@
 #include "fraction_list.h"
 #include "int_list.h"
 
+// insert fraction at head of list
 fraction_node *insert_fraction(fraction_node *head, fraction value) {
   fraction_node *new_node = (fraction_node *)malloc(sizeof(fraction_node));
   new_node->value = value;
@@ -8,6 +9,7 @@ fraction_node *insert_fraction(fraction_node *head, fraction value) {
   return new_node;
 }
 
+// delete list of fractions
 fraction_node *delete_fractions(fraction_node *head) {
   while (head != NULL) {
     fraction_node *tmp = head;
@@ -17,6 +19,7 @@ fraction_node *delete_fractions(fraction_node *head) {
   return NULL;
 }
 
+// enumerate all possible rational factors of a fraction
 fraction_node *frac_factors(fraction f) {
   fraction_node *results = NULL;
   int_node *num_factors = int_factors(f.numerator);

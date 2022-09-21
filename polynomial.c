@@ -1,5 +1,10 @@
 #include "polynomial.h"
 
+/*
+ * evaluates the polynomial eq at value f
+ * this function uses Horner's method to
+ * evaluate the polynomial.
+ */
 fraction eval(polynomial *eq, fraction f) {
   fraction result;
 
