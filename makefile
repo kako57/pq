@@ -1,4 +1,3 @@
-CC := clang
 CFLAGS := -std=c99 -pedantic -Wall -Wextra
 
 pq: main.o fraction.o fraction_list.o polynomial.o solution.o int_list.o
